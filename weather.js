@@ -1,12 +1,11 @@
 const https = require('https')
+require('dotenv').config();
 
 
-var args = process.argv.slice(2);
-
-const longitude = args[1];
-const latitude = args[0];
-const appId = "240aa650f4db4e154a07d0459c30a347";
-const url = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + appId + "&units=metric";
+const long = process.env.LONG;
+const lat = process.env.LAT;
+const appId = process.env.API_KEY
+const url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=" + appId + "&units=metric";
 https.get(url, (response) => {
     if (response.statusCode === 200) {
         response.on("data", (data) => {

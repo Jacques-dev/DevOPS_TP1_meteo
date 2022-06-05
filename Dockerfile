@@ -1,13 +1,11 @@
-# Specify a base image
-FROM node:10
+FROM node:17-alpine3.14
 
-#Install some dependencies
+WORKDIR /app
 
-WORKDIR /.
-
-COPY . .
+RUN npm i -g npm@8.11.0
+COPY package*.json ./
+COPY weather.js ./
 
 RUN npm install
 
-# Set up a default command
-CMD ["node","weather.js"]
+CMD [ "node", "weather.js" ]

@@ -1,11 +1,18 @@
-FROM node:17-alpine3.14
+FROM python:3.8
 
+RUN apt update
+RUN apt install python3
+
+# set the working directory in the container
 WORKDIR /app
 
-RUN npm i -g npm@8.11.0
-COPY package*.json ./
-COPY weather.js ./
+COPY app.py ./
 
-RUN npm install
+# copy the dependencies file to the working directory
+COPY requirements.txt .
 
-CMD [ "node", "weather.js" ]
+# install dependencies
+RUN pip install -r requirements.txt
+
+# command to run on container start
+CMD [ "python3", "./app.py" ]

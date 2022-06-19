@@ -1,11 +1,17 @@
-FROM python:3.11.0a7-alpine3.15
+FROM python:alpine3.16
 
-WORKDIR /app
+# set the working directory in the container
+WORKDIR /Users/fares/Desktop/DevOps/TP1
 
-COPY requirements.txt requirements.txt
+COPY TP1.py ./
 
-RUN pip3 install --no-cache-dir -r requirements.txt
+COPY requirements.txt .
 
-COPY . .
+# install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python3", "main.py"]
+EXPOSE 80
+
+# command to run on container start
+CMD [ "python3", "./TP1.py" ]
+
